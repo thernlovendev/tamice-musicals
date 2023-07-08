@@ -1,11 +1,13 @@
 const { xml, showDetails } = require('./data.json');
 const { convertXmlToJson, } = require('./helperFunctions');
 const { broadWayAPIsTypes, broadwayXmlAPIs, callBroadway } = require('./broadwayAPI')
+const database = require('./sqlConnection');
 
 const getShowBasic = async () => {
     try {
         const { data: apiData } = await callBroadway({ xml: broadwayXmlAPIs.showBasic() });
         const data = await convertXmlToJson(apiData.xml, broadWayAPIsTypes.showBasic);
+        // console.log(data);
         return data;
     } catch (error) {
         throw error;
@@ -16,7 +18,8 @@ const getShowDetails = async () => {
     try {
         const { data: apiData } = await callBroadway({ xml: broadwayXmlAPIs.showDetails() });
         const data = await convertXmlToJson(apiData.xml, broadWayAPIsTypes.showDetails);
-        return data;
+        console.log(data);
+        return data
     } catch (error) {
         throw error;
     }
@@ -36,8 +39,26 @@ const getShowPricesAvailability = async () => {
     }
 }
 
+const fetchMusicalsAndInsertToTickets = async () => {
+    let data = await getShowBasic()
+    // console.log(data);
+
+    data.forEach(element => {
+        let query = `INSERT INTO tickets (title_en, title_kr, ticket_template, ticket_type, status, currency, product_code, additional_price_type, additional_price_amount, additional_price_image, show_in_schedule_page, announcement, company_id, city_id, deleted_at, created_at, updated_at, out_of_stock_alert_adult, out_of_stock_alert_child) VALUES (?, ?,?, ?,?, ?,?, ?,?, ?,?, ?, ?,?,?,?,?,?,?);`;
+    
+        // Creating queries
+        database.query(query, [element.ShowCode, element.ShowCode, '', 'Musicals','', '', '', '', '0', null, '0', '', '1', '33', null, null, null, null, null], (err, rows) => {
+            if (err) throw err;
+            console.log("Row inserted with id = " + rows.insertId);
+        });
+    });
+    
+};
+
 // getShowDetails()
 
 // getShowBasic()
 
-getShowPricesAvailability()
+// getShowPricesAvailability()
+
+fetchMusicalsAndInsertToTickets()
