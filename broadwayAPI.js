@@ -18,7 +18,8 @@ const broadwayAPICredentaisl = {
 const broadWayAPIsTypes = {
     showBasic: 'showBasic',
     showDetails: 'showDetails',
-    showPricesAvailability: 'showPricesAvailability'
+    showPricesAvailability: 'showPricesAvailability',
+    PerformancesPOHPricesAvailability: 'PerformancesPOHPricesAvailability'
 }
 
 const callBroadway = async ({ xml }) => {
@@ -105,7 +106,37 @@ const broadwayXmlAPIs = {
    </soapenv:Body>
 </soapenv:Envelope>
 `
-    }
+    },
+    PerformancesPOHPricesAvailability: () => {
+        return `
+        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+            <soapenv:Header>
+            <tem:AuthHeader>
+                <tem:username>${broadwayAPICredentaisl.username}</tem:username>
+                <!--Optional:-->
+                <tem:password>${broadwayAPICredentaisl.password}</tem:password>
+            </tem:AuthHeader>
+            </soapenv:Header>
+            <soapenv:Body>
+            <tem:PerformancesPOHPricesAvailability>
+                <!--Optional:-->
+                <tem:SaleTypesCode>F</tem:SaleTypesCode>
+                <!--Optional:-->
+                <tem:ShowCityCode>NYCA</tem:ShowCityCode>
+                <tem:DateBegins>2014-09-04</tem:DateBegins>
+                <tem:DateEnds>2014-09-04</tem:DateEnds>
+                <!--Optional:-->
+                <tem:OneShowCode>phantom</tem:OneShowCode>
+                <!--Optional:-->
+                <tem:AvailabilityType>F</tem:AvailabilityType>
+                <!--Optional:-->
+                <tem:BestSeatsOnly>1</tem:BestSeatsOnly>
+                <tem:LastChangeDate>2000-01-01</tem:LastChangeDate>
+            </tem:PerformancesPOHPricesAvailability>
+            </soapenv:Body>
+        </soapenv:Envelope>
+        `;
+    },
 }
 
 

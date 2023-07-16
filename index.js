@@ -55,10 +55,23 @@ const fetchMusicalsAndInsertToTickets = async () => {
     
 };
 
-// getShowDetails()
+const fetchSeatAndUpdateToTickets = async () => {
+    try {
+        const { data: apiData } = await callBroadway({ xml: broadwayXmlAPIs.PerformancesPOHPricesAvailability() });
+        console.log(apiData);
+        // const data = await convertXmlToJson(apiData.xml, broadWayAPIsTypes.PerformancesPOHPricesAvailability);
+        // return data
+    } catch (error) {
+        throw error;
+    }
+}
+
+getShowDetails()
 
 // getShowBasic()
 
 // getShowPricesAvailability()
 
-fetchMusicalsAndInsertToTickets()
+// fetchMusicalsAndInsertToTickets()
+
+// fetchSeatAndUpdateToTickets()
