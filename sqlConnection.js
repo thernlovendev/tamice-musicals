@@ -4,7 +4,7 @@ var connection = mysql.createConnection({
   port: 3306,
   user     : 'root',
   password : 'Hiep123$',
-  database : 'tamice'
+  database : 'tamice_2'
 });
  
 connection.connect(function(err) {
