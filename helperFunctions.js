@@ -20,6 +20,10 @@ const jsonFormator = {
         const Table = data[0]['PerformancesPOHPricesAvailabilityResponse'][0]['PerformancesPOHPricesAvailabilityResult'][0]['diffgr:diffgram'][0]['NewDataSet'][0]['Table'] || [];
         return Table.map(row => generateKeyPair(row));
     },
+    PerformancesPOHPricesAvailability: (data) => {
+        const Table = data[0]['PerformancesPOHPricesAvailabilityResponse'][0]['PerformancesPOHPricesAvailabilityResult'][0]['diffgr:diffgram'][0]['NewDataSet'][0]['Table'] || [];
+        return Table.map(row => generateKeyPair(row));
+    },
 }
 
 const convertXmlToJson = (xml, type) => {
